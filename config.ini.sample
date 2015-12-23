@@ -1,8 +1,0 @@
-[ConoHa]
-Identity_Service_URL=https://identity.tyo1.conoha.io/v2.0
-API_user=
-API_pass=
-tenantId=
-
-[zabbix]
-ip=127.0.0.1

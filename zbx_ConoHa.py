@@ -1,8 +1,6 @@
 # coding: UTF-8
-import os
 import sys
 import json
-import ConfigParser
 import requests
 import socket
 import struct
@@ -52,20 +50,22 @@ class ZabbixSender:
 
 
 if __name__ == '__main__':
-    base = os.path.dirname(os.path.abspath(__file__))
-    config_file_path = os.path.normpath(os.path.join(base, 'config.ini'))
 
-    conf = ConfigParser.SafeConfigParser()
-    conf.read(config_file_path)
+    zbx_sv_ip = "ZabbixサーバのIP"
+
+    url = "https://identity.tyo1.conoha.io/v2.0/tokens"
+    api_user = "ConoHa API User"
+    api_pass = "ConoHa API Password"
+    api_user = "ConoHa Tenant ID"
 
     # zabbix sender
-    sender = ZabbixSender(conf.get("zabbix","ip"))
+    sender = ZabbixSender(zbx_sv_ip)
 
     # auth
-    url = conf.get("ConoHa","Identity_Service_URL") + "/tokens"
-    api_user = conf.get("ConoHa","API_user")
-    api_pass = conf.get("ConoHa","API_pass")
-    tenant_id = conf.get("ConoHa","tenantId")
+    url = "https://identity.tyo1.conoha.io/v2.0/tokens"
+    api_user = "ConoHa API User"
+    api_pass = "ConoHa API Password"
+    api_user = "ConoHa Tenant ID"
 
     data = json.dumps({"auth":{"passwordCredentials":{"username":api_user ,"password":api_pass},"tenantId":tenant_id}})
     auth_header = {"Accept":"application/json"}
@@ -113,7 +113,8 @@ if __name__ == '__main__':
     # payment
     argvs = sys.argv
     if len(argvs) == 2 and argvs[1] == "payment":
-        sender.AddData("ConoHa", "ConoHa.billing-invoices", int(rdata["billing_invoices"][0]["bill_plus_tax"]), int(time.mktime(invoice_date.timetuple())))
+        #sender.AddData("ConoHa", "ConoHa.billing-invoices", int(rdata["billing_invoices"][0]["bill_plus_tax"]), int(time.mktime(invoice_date.timetuple())))
+        sender.AddData("ConoHa", "ConoHa.billing-invoices", int(rdata["billing_invoices"][0]["bill_plus_tax"]))
     # send
     sender.Send()
     sender.ClearData()
