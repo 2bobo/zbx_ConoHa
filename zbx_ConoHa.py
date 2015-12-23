@@ -51,22 +51,22 @@ class ZabbixSender:
 
 if __name__ == '__main__':
 
-    zbx_sv_ip = "ZabbixサーバのIP"
-
-    url = "https://identity.tyo1.conoha.io/v2.0/tokens"
-    api_user = "ConoHa API User"
-    api_pass = "ConoHa API Password"
-    api_user = "ConoHa Tenant ID"
+    # --- 設定 ---
+    # Zabbix ServerIP
+    zbx_sv_ip = "127.0.0.1"
+    # ConoHa API User
+    api_user = ""
+    # ConoHa API Password
+    api_pass = ""
+    # ConoGa Tenant ID
+    tenant_id = ""
+    # --- 設定ここまで ---
 
     # zabbix sender
     sender = ZabbixSender(zbx_sv_ip)
 
     # auth
     url = "https://identity.tyo1.conoha.io/v2.0/tokens"
-    api_user = "ConoHa API User"
-    api_pass = "ConoHa API Password"
-    api_user = "ConoHa Tenant ID"
-
     data = json.dumps({"auth":{"passwordCredentials":{"username":api_user ,"password":api_pass},"tenantId":tenant_id}})
     auth_header = {"Accept":"application/json"}
     response = requests.post(
